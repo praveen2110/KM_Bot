@@ -1,0 +1,48 @@
+[
+    {
+      "id": 1,
+      "title": "Introduction to Knowledge Managemnet portal",
+      "content": "Welcome to Common Ground. This wiki is managed by the Knowledge Management team. This page is intended to give you an overview of the latest news ."
+    },
+
+    {
+      "id": 2,
+      "title": "KM Team",
+      "content": "Meet the Knowledge Management Team : Dr. Alina Pukhovskaya KM ManageR"
+                                                       
+    },
+    {
+      "id": 3,
+      "title": "what is the procedure to create Runbook",
+      "content": "Please find below link for the Runbook creation procedure [Click here](https://kiki.com/display/6TO/Runbooks.)"
+    },
+    {
+      "id": 4,
+      "title": "How To Request Access to GitHub Enterprise",
+      "content": "Request access to the US GitHub Enterprise Organization by submitting a GitHub Enterprise User Provisioning Request.  The requested user's PML will need to approve the RITM in Fusion before the automated process adds them to the US GitHub Security Group.\\\n NOTE: If the listed Approver is incorrect, you should select a different user to approve the requested access.  Only Manager/Lead I and above may be listed as approvers.\\\nLink to GitHub Enterprise User Provisioning Request RITM: GitHub Enterprise User Provisioning Request -   "
+    },
+
+    {	 
+      "id": 5,
+      "title": "Service Request (RITM) Queue Management",
+      "content": "The SAG team receives three major types of tickets :Incidents, Changes, and RITMs(short for Requested Item). Under each category, we also receive subtasks that the tickets comprise of: Incident tasks, Catalog tasks for RITMs, and Change tasks. The ITIL definitions for each type of ticket are outlined below.\\\nPlease find below link [Click here](https://kiki.com/display/6TO/Service+Request+%28RITM%29+Queue+Management)"
+    },
+    {	 
+      "id": 6,
+      "title": "What are my Closed Tickets in Service Now/ Status of my Tickets",
+      "content": "You can check your service now tickets by logging into your account and viewing the closed tickets tab."
+    },
+    {	 
+      "id": 7,
+      "title": "Github co-pilot for business user access request",
+      "content": "Request access to the US GitHub co-pilot Organization by submitting a GitHub  User Provisioning Request.  The requested user's PML will need to approve the RITM in Fusion before the automated process adds them to the US GitHub Security Group.\\\n NOTE: If the listed Approver is incorrect, you should select a different user to approve the requested access.  Only Manager/Lead I and above may be listed as approvers.\\\nLink to GitHub User Provisioning Request RITM: GitHub Enterprise User Provisioning Request -   "
+    },
+    {	 
+      "id": 8,
+      "title": "How to get access to US Azure Sandbox",
+      "content": "Request access to the US Azure Sandbox Organization by submitting a Azure Provisioning Request.  The requested user's PML will need to approve the RITM in Fusion before the automated process adds them to the US Security Group.\\\n NOTE: If the listed Approver is incorrect, you should select a different user to approve the requested access.  Only Manager/Lead I and above may be listed as approvers.\\\nLink to User Provisioning Request RITM: Azure SandBox Request"
+    }
+    
+
+  ]
+  
