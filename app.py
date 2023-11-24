@@ -4,12 +4,24 @@ import openai
 import nltk
 import json
 from nltk.tokenize import sent_tokenize
+from fuzzywuzzy import fuzz
+import re
+
 
 nltk.download("punkt")
 app = Flask(__name__)
 valid_words = set(word.lower() for word in nltk.corpus.words.words())
 # Initialize OpenAI API with your API key
 openai.api_key = "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"  # Replace with your OpenAI API key
+
+def generate_openai_response(prompt):
+    # Call OpenAI API to get a response
+    openai_response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=200
+    )
+    return openai_response.choices[0].text.strip()
 
 def search_in_json(user_question):    
     # Simulated database data
@@ -19,7 +31,29 @@ def search_in_json(user_question):
             knowledge_Info = item['title']            
             if user_question.lower() in knowledge_Info.lower():
                 return item['content']  
-    
+
+def normalize_text(text):
+    # Normalize text by converting to lowercase and removing non-alphanumeric characters
+    return re.sub(r'[^a-zA-Z0-9\s]', '', text.lower())
+
+def search_similar_question(user_question):
+    with open("Knowledge_Repo.json", "r") as file:
+        fake_database = json.load(file)
+
+    # Normalize user's question
+    normalized_user_question = normalize_text(user_question)
+
+    # Compare normalized user's question with normalized existing questions using fuzzy matching
+    similarity_threshold = 80  # Adjust the threshold as needed
+    for item in fake_database:
+        knowledge_info = item['title']        
+        normalized_knowledge_info = normalize_text(knowledge_info)
+        similarity = fuzz.token_set_ratio(normalized_user_question, normalized_knowledge_info)
+
+        if similarity >= similarity_threshold:           
+            return item['content']
+
+    return None  
 
 def search_in_docx(user_question):
 
@@ -89,25 +123,26 @@ def get_answer():
         docx_answer = search_in_docx(user_question)
         if docx_answer:
             chatbot_answer = docx_answer
-        else:            
-            is_valid_word = check_valid_word(user_question)
-            if is_valid_word:
-                # Call OpenAI API to get a response
-                openai_response = openai.Completion.create(
-                    engine="text-davinci-003",
-                    prompt=user_question,
-                    max_tokens=500
-                )                
-                filtered_response = extract_relevant_information(openai_response.choices[0].text,user_question)
-                chatbot_answer = filtered_response.strip() if filtered_response else "Sorry, I could not understand"               
-                is_valid_word = check_valid_word(chatbot_answer)
-                if is_valid_word:
-                    chatbot_answer = chatbot_answer
+        else: 
+             #chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"           
+             is_valid_word = check_valid_word(user_question)
+             if is_valid_word:
+                similar_answer = search_similar_question(user_question)
+                if similar_answer:
+                    chatbot_answer = similar_answer
                 else:
-                    chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"
+                    # Call OpenAI API to get a response
+                    OpenAI_answer = generate_openai_response(user_question)              
+                    chatbot_answer = extract_relevant_information(OpenAI_answer,user_question)
+                    #chatbot_answer = filtered_response.strip() if filtered_response else "Sorry, I could not understand"               
+                    is_valid_word = check_valid_word(chatbot_answer)
+                    if is_valid_word:
+                        chatbot_answer = chatbot_answer
+                    else:
+                        chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"
                 
-            else:
-                chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"
+             else:
+                 chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"
     
     return jsonify({"answer": chatbot_answer})
                

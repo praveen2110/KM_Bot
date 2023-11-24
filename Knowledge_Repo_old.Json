@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "title": "Introduction to Knowledge Managemnet portal",
+        "content": "Welcome to Common Ground. This wiki is managed by the Knowledge Management team. This page is intended to give you an overview of the latest news ."
+    },
+    {
+        "id": 2,
+        "title": "description of ApplicationA",
+        "content": "ApplicationA is a web-based application for managing internal processes."
+    },
+    {
+        "id": 3,
+        "title": "architecture of ApplicationA",
+        "content": "Microservices architecture with a front-end built in React and a backend using Node.js"
+    },
+    {
+        "id": 4,
+        "title": "sme of ApplicationA",
+        "content": "John Smith (john.smith@appa.com)"
+    },
+    {
+        "id": 5,
+        "title": "poc of ApplicationA",
+        "content": "John Smith (john.smith@appa.com)"
+    },
+    {
+        "id": 6,
+        "title": "esculation ticket link",
+        "content": "[Raise a Ticket for ApplicationA](https://example.com/tickets/ApplicationA)"
+    },
+    
+    {
+        "id": 2,
+        "title": "ApplicationB",
+        "content": {
+            "description": "ApplicationB is a data analytics platform.",
+            "architecture": "Monolithic architecture with a Python-based backend and a Vue.js front-end.",
+            "sme": "Alice Johnson (alice.johnson@appb.com)",
+            "poc": "Bob Williams (bob.williams@appb.com)",
+            "ticket_link": "[Raise a Ticket for ApplicationB](https://example.com/tickets/ApplicationB)"
+        }
+    }
+]
