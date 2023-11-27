@@ -1,0 +1,53 @@
+[
+    {
+      "id": 1,
+      "title": "What is DemandBase Application",
+      "content": "Demandbase is a SaaS application that is focused on Account-Based Marketing (ABM) solutions to help businesses personalize their marketing efforts and engage with target accounts more effectively"
+    },
+    {
+        "id": 2,
+        "title": "What is Architecture of DemandBase",
+        "content": "Demandbase would involve a combination of front-end and back-end components, databases, integrations, and other elements to support its features and services."
+
+    },
+    {
+        "id": 3,
+        "title": "Escalation Point of contact POC for DemandBase Application",
+        "content": "For technical issues, the escalation point of contact is Himani (Himani@abc.com). For customer service matters point of contact is Praveen (Praveen@abc.com) ."
+    },
+    {
+        "id": 4,
+        "title": "Support Point of contact POC for DemandBase Application",
+        "content": "Praveen (praveen@abc.com) Can help you with general support question related to DemandBase Application"
+    },
+    {
+        "id": 5,
+        "title": "SME Subject Matter Expert for DemandBase Application",
+        "content": "You can Contact Vikas Agarwal (vikas@abc.com) as he is the Subject Matter Expert (SME) for this application. He possesses in-depth knowledge and expertise and can provide valuable assistance regarding any inquiries or issues related to the application"
+    },
+    {
+        "id": 6,
+        "title": "What is Account Connector, How to access it of DemandBase Application",
+        "content": "Using Account Connector, you can connect your Demandbase account data with other third-party integrations. Account Connector supports Adobe Analytics, Google Analytics, Drift, Optimizely, Uberflip, and other custom integrations. To access the Account Connector page, from the left navigation bar, go to Settings_N.png Settings > Demandbase-Wide Settings > Account Connector See [Set Up Demandbase to Send Data to an Integration: Account Connector](https://support.demandbase.com/hc/en-us/articles/360057169531)"
+    },
+    {
+        "id": 7,
+        "title": "What data can Account Connecct send",
+        "content": "Account Connector (API) can send account data only."
+    },
+    {
+        "id": 8,
+        "title": "Who has access to Account Connector",
+        "content": "Only users with Admin privileges"
+    },
+    {
+        "id": 9,
+        "title": "Are there limits to the number of integrations you can create",
+        "content": "There is no limit for the number integrations you can create"
+    },
+    {
+        "id": 10,
+        "title": "Are there limitations on the number of variables you can select for the response",
+        "content": "You can select up to 200"
+    }
+]

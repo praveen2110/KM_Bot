@@ -3,6 +3,7 @@ from docx import Document
 import openai
 import nltk
 import json
+import os
 from nltk.tokenize import sent_tokenize
 from fuzzywuzzy import fuzz
 import re
@@ -12,7 +13,7 @@ nltk.download("punkt")
 app = Flask(__name__)
 valid_words = set(word.lower() for word in nltk.corpus.words.words())
 # Initialize OpenAI API with your API key
-openai.api_key = "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"  # Replace with your OpenAI API key
+#openai.api_key = "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"  # Replace with your OpenAI API key
 
 def generate_openai_response(prompt):
     # Call OpenAI API to get a response
@@ -23,22 +24,14 @@ def generate_openai_response(prompt):
     )
     return openai_response.choices[0].text.strip()
 
-def search_in_json(user_question):    
-    # Simulated database data
-    with open("Knowledge_Repo.Json","r") as file:
-        fake_database = json.load(file)
-    for item in fake_database:
-            knowledge_Info = item['title']            
-            if user_question.lower() in knowledge_Info.lower():
-                return item['content']  
-
 def normalize_text(text):
     # Normalize text by converting to lowercase and removing non-alphanumeric characters
     return re.sub(r'[^a-zA-Z0-9\s]', '', text.lower())
 
 def search_similar_question(user_question):
-    with open("Knowledge_Repo.json", "r") as file:
-        fake_database = json.load(file)
+    
+
+    fake_database = [] 
 
     # Normalize user's question
     normalized_user_question = normalize_text(user_question)
@@ -55,28 +48,58 @@ def search_similar_question(user_question):
 
     return None  
 
-def search_in_docx(user_question):
-
-    docx_path = "C:\PyWorkspace\Chat_bot\Knowledge_Repo.docx"  
-
+def has_tables(docx_path):
     try:
         doc = Document(docx_path)
-        for table in doc.tables:
-            for row in table.rows:
-                question_cell = row.cells[1]  # Assuming the question is in the first column
-                answer_cell = row.cells[4]    # Assuming the answer is in the second column
-
-                # Check if the user's question is in the question cell
-                if user_question.lower() in question_cell.text.lower():
-                    return answer_cell.text
+        return any(table for table in doc.tables)
     except Exception as e:
-        print(f"Error reading DOCX file: {e}")
+        print(f"Error checking for tables: {e}")
+        return False
+
+def has_paragraphs(docx_path):
+    try:
+        doc = Document(docx_path)
+        return any(paragraph for paragraph in doc.paragraphs)
+    except Exception as e:
+        print(f"Error checking for paragraphs: {e}")
+        return False
+
+def search_in_folder(user_question, folder_path):
+    threshold = 80
+
+    try:
+        for filename in os.listdir(folder_path):
+            file_path = os.path.join(folder_path, filename)
+
+            if filename.endswith(".docx"):
+                if has_tables(file_path):
+                    doc = Document(file_path)
+                    for table in doc.tables:
+                        for row in table.rows:
+                            question_cell = row.cells[1]  # Assuming the question is in the first column
+                            answer_cell = row.cells[4]    # Assuming the answer is in the second column
+
+                            # Check if the user's question is similar to the question in the cell
+                            if fuzz.token_set_ratio(user_question.lower(), question_cell.text.lower()) >= threshold:
+                                return answer_cell.text
+
+                elif has_paragraphs(file_path):
+                    doc = Document(file_path)
+                    for paragraph in doc.paragraphs:
+                        # Check if the user's question is similar to the paragraph text
+                        if fuzz.token_set_ratio(user_question.lower(), paragraph.text.lower()) >= threshold:
+                            return paragraph.text
+
+    except Exception as e:
+        print(f"Error reading DOCX files in the folder: {e}")
 
     return None
+
 def check_valid_word(message):
     tokens = nltk.word_tokenize(message)
     is_valid_word = any(token.lower() in valid_words for token in tokens)
     return is_valid_word
+
 def extract_relevant_information(openai_text, user_message):
     # Tokenize the OpenAI response into sentences
     sentences = sent_tokenize(openai_text)
@@ -113,37 +136,31 @@ def index():
 @app.route("/get_answer", methods=["POST"])
 def get_answer():
     user_question = request.form["user_question"]
+    user_question = normalize_text(user_question.lower())
 
-    # Search in JSON
-    json_answer = search_in_json(user_question)
-    if json_answer:
-        chatbot_answer = json_answer
+    is_valid_word = check_valid_word(user_question)
+    if is_valid_word:
+        #similar_answer = search_similar_question(user_question)
+        similar_answer_docx = search_in_folder(user_question,folder_path="C:\Code_Repo\KM_Bot\Database")
+        # if similar_answer:
+        #     chatbot_answer = similar_answer
+        if similar_answer_docx:
+            chatbot_answer = similar_answer_docx
+        else:
+            chatbot_answer = "Sorry, I couldn't find information related to "+user_question+".Is there something I can help you with?"
+            # #Call OpenAI API to get a response
+            # OpenAI_answer = generate_openai_response(user_question)              
+            # chatbot_answer = extract_relevant_information(OpenAI_answer,user_question)
+            # #chatbot_answer = filtered_response.strip() if filtered_response else "Sorry, I could not understand"               
+            # is_valid_word = check_valid_word(chatbot_answer)
+            # if is_valid_word:
+            #     chatbot_answer = chatbot_answer
+            # else:
+            #     chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"
+            
     else:
-        # Search in DOCX
-        docx_answer = search_in_docx(user_question)
-        if docx_answer:
-            chatbot_answer = docx_answer
-        else: 
-             #chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"           
-             is_valid_word = check_valid_word(user_question)
-             if is_valid_word:
-                similar_answer = search_similar_question(user_question)
-                if similar_answer:
-                    chatbot_answer = similar_answer
-                else:
-                    # Call OpenAI API to get a response
-                    OpenAI_answer = generate_openai_response(user_question)              
-                    chatbot_answer = extract_relevant_information(OpenAI_answer,user_question)
-                    #chatbot_answer = filtered_response.strip() if filtered_response else "Sorry, I could not understand"               
-                    is_valid_word = check_valid_word(chatbot_answer)
-                    if is_valid_word:
-                        chatbot_answer = chatbot_answer
-                    else:
-                        chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"
-                
-             else:
-                 chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+" Is there something I can help you with?"
-    
+        chatbot_answer = "I'm Sorry, I don't understand what you mean by "+user_question+".Is there something I can help you with?"
+
     return jsonify({"answer": chatbot_answer})
                
 

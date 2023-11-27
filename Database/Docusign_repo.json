@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1,
+        "title": "What is in the DocuSign",
+        "content": "DocuSign is a SaaS application that provides a convenient and secure solution for organizations seeking to digitize and automate their document signing processes"
+
+    },
+    {
+        "id": 2,
+        "title": "What is Architecture of DocuSign",
+        "content": "DocuSign's architecture would likely involve a combination of front-end and back-end components, secure document storage, user authentication, encryption for data security, and integration points with various APIs for third-party services. It uses microservices architecture to handle different aspects of their functionality and ensure scalability, reliability, and maintainability."
+
+    },
+    {
+        "id": 3,
+        "title": "Technical Escalation Point of contact POC for DocuSign Application",
+        "content": "Amit Mishra (Amitmishra@abc.com) Can help you with technical question related to DocuSign Application"
+    },
+    {
+        "id": 4,
+        "title": "Support Point of contact POC for DocuSign Application",
+        "content": "Praveen (praveen@abc.com) Can help you with general support question related to DocuSign Application"
+    },
+    {
+        "id": 5,
+        "title": "SME Subject Matter Expert of DocuSign Application",
+        "content": "You can Contact Vikas Agarwal (vikas@abc.com) as he is the Subject Matter Expert (SME) for this application. He possesses in-depth knowledge and expertise and can provide valuable assistance regarding any inquiries or issues related to the application"
+    },
+    {      
+        "id": 6,
+        "title": "What is in the Chrome extension?",
+        "content": "The DocuSign eSignature for Chrome extension allows users to access DocuSign eSignature from anywhere in Chrome. Select the DocuSign icon in the upper right corner of your browser window for convenient envelope management."
+    },
+    {      
+        "id": 7,
+        "title": "What is the DocuSign eSignature for Google Workspace add-on?",
+        "content": "DocuSign eSignature in your Google Workspace puts electronic signing where it offers the most convenience. You can generate agreements from Gmail, Drive, or Docs, add recipients and a personal message, then tag the document in DocuSign. Collect signatures or upload and sign agreements all through the DocuSign add-on in your Google Workspace"
+    },
+    {      
+        "id": 8,
+        "title": "What browsers are compatible with the Chrome extension?",
+        "content": "Both Google Chrome and Microsoft Edge are compatible."
+    },
+    {      
+        "id": 9,
+        "title": "What data are gathered by DocuSign from my Google account?",
+        "content": "The only data gathered from Google’s APIs are the specifically selected documents opened using the DocuSign app by the user. No other documents within the user’s Chrome, Google Drive, Google Docs, or Gmail are accessed. A copy of each document is made so that it may be sent through DocuSign eSignature. None of the data gathered may be used for marketing purposes or given to any affiliates. DocuSign adheres to [Google's Limited Use Requirements](https://developers.google.com/terms/api-services-user-data-policy#additional-requirements-for-specific-api-scopes)"
+    },
+    {      
+        "id": 10,
+        "title": "DocuSign Privacy Policy",
+        "content": "For more information about the privacy practices used by DocuSign and set by Google you can refer to the following link [DocuSign Privacy Policy](https://www.docusign.com/company/privacy-policy)"
+    }
+]
